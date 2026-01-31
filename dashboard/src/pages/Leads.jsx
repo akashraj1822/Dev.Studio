@@ -9,11 +9,6 @@ export default function Leads() {
     useEffect(() => {
         fetchLeads();
 
-        // Request Notification Permission
-        if (Notification.permission !== 'granted') {
-            Notification.requestPermission();
-        }
-
         // Realtime Subscription
         const subscription = supabase
             .channel('leads_channel')
@@ -21,12 +16,16 @@ export default function Leads() {
                 const newLead = payload.new;
                 setLeads((current) => [newLead, ...current]);
 
-                // Send Notification
-                if (Notification.permission === 'granted') {
-                    new Notification('New Lead!', {
-                        body: `${newLead.name} needs ${newLead.requirement}`,
-                        icon: '/vite.svg'
-                    });
+                // Send Notification (Safely)
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    try {
+                        new Notification('New Lead!', {
+                            body: `${newLead.name} needs ${newLead.requirement}`,
+                            icon: '/vite.svg'
+                        });
+                    } catch (e) {
+                        console.error('Notification error:', e);
+                    }
                 }
             })
             .subscribe();
@@ -54,13 +53,18 @@ export default function Leads() {
     };
 
     const formatDateTime = (dateString) => {
-        return new Date(dateString).toLocaleString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true
-        });
+        try {
+            if (!dateString) return '';
+            return new Date(dateString).toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            });
+        } catch (e) {
+            return '';
+        }
     };
 
     const getUrgencyColor = (urgency) => {
