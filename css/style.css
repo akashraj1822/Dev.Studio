@@ -668,8 +668,16 @@ h4 {
     .hero-image {
         max-width: 100%;
         height: auto;
-        transform: none !important;
-        /* Disable hover/scale impacts */
+
+        /* iOS Safari Fixes */
+        transform: translateZ(0);
+        /* Force GPU acceleration */
+        -webkit-transform: translateZ(0);
+        will-change: transform;
+
+        /* Remove heavy filters that cause Safari rendering fails */
+        filter: none !important;
+        -webkit-filter: none !important;
     }
 
     /* Floating Tags - Disable on mobile */
