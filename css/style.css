@@ -706,9 +706,40 @@ h4 {
         -webkit-filter: none !important;
     }
 
-    /* Floating Tags - Disable on mobile */
+    /* Floating Tags - Enable on mobile with adjustments */
     .floating-tag {
-        display: none;
+        display: block;
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        /* slightly smaller radius */
+        /* Hardening for iOS animation */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        will-change: transform;
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+    }
+
+    /* Mobile Positioning - tighter around the image */
+    .tag-1 {
+        top: 0%;
+        left: 0%;
+    }
+
+    .tag-2 {
+        top: 15%;
+        right: -5%;
+    }
+
+    .tag-3 {
+        bottom: 10%;
+        left: -5%;
+    }
+
+    .tag-4 {
+        bottom: 25%;
+        right: -10%;
     }
 
     /* Typography Scaling */
