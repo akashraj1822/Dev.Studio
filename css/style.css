@@ -684,7 +684,6 @@ h4 {
         .hero-image-wrapper {
             order: 2;
             /* Image second */
-            margin-top: 2rem;
             margin-bottom: 0;
             display: flex;
             /* Ensure flex context */
@@ -692,8 +691,12 @@ h4 {
             opacity: 0;
             /* Start hidden for animation */
             animation: fadeIn 1.2s ease forwards;
-            /* Explicit animation */
+            -webkit-animation: fadeIn 1.2s ease forwards;
+            /* Safari Support */
             animation-delay: 0.3s;
+            -webkit-animation-delay: 0.3s;
+            will-change: opacity, transform;
+            /* Performance Hint */
         }
 
         /* Hero Image Handling */
