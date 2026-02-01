@@ -207,9 +207,7 @@ h4 {
     align-items: center;
     /* Add a subtle editorial backdrop/blob */
     background: radial-gradient(circle at center, #ffffff 0%, rgba(255, 255, 255, 0) 70%);
-    opacity: 0;
-    animation: fadeIn 1.2s ease forwards;
-    animation-delay: 0.3s;
+    /* Animation moved to desktop media query */
 }
 
 .hero-image {
@@ -229,8 +227,7 @@ h4 {
 }
 
 .hero-content {
-    opacity: 0;
-    animation: fadeIn 1.2s ease forwards;
+    /* Animation moved to desktop media query */
 }
 
 /* Floating Tags - pushed further out for the bigger image */
@@ -612,6 +609,20 @@ h4 {
     }
 }
 
+/* Desktop Animation Rules (Min-Width: 769px) */
+@media (min-width: 769px) {
+    .hero-content {
+        opacity: 0;
+        animation: fadeIn 1.2s ease forwards;
+    }
+
+    .hero-image-wrapper {
+        opacity: 0;
+        animation: fadeIn 1.2s ease forwards;
+        animation-delay: 0.3s;
+    }
+}
+
 /* Mobile Responsive Fixes (Max-Width: 768px) */
 @media (max-width: 768px) {
 
@@ -645,10 +656,8 @@ h4 {
         /* Image second */
         margin-top: 2rem;
         margin-bottom: 0;
-        opacity: 1 !important;
-        /* Force visible */
-        animation: none !important;
-        /* Disable animation to prevent stuck state */
+        margin-bottom: 0;
+        /* opacity reset managed by desktop query logic */
     }
 
     /* Hero Image Handling */
